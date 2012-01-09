@@ -2,6 +2,7 @@
 
 
 ;;;;; NES file format docs: http://fms.komkon.org/EMUL8/NES.html#LABM
+;;;;; A little more NES ROM talk: http://sadistech.com/nesromtool/romdoc.html
 
 
 ;;;; Mappers
@@ -61,8 +62,8 @@
 (defun parse-header (byte-vector)
   (if (and (equalp #(78 69 83 26) (subseq byte-vector 0 4)) ; "NES^Z"
            (every #'zerop (subseq byte-vector 10 16)))
-      (list :16k-roms (aref byte-vector 4)
-            :8k-roms (aref byte-vector 5)
+      (list :16k-roms (aref byte-vector 4) ;; program rom
+            :8k-roms (aref byte-vector 5) ;; character rom
             :8k-rams (let ((byte (aref byte-vector 8)))
                        (if (zerop byte) 1 byte)) ; backwards compatibility
             ;; The mapper's four low bits are at the end of byte 6
