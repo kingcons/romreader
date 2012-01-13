@@ -5,8 +5,8 @@
   :license "LLGPL"
   :author "Brit Butler <redline6561@gmail.com>"
   :pathname "src/"
-  :components (:components ((:file "package")
-                            (:file "util")
-                            (:file "conditions")
-                            (:file "romreader")
-                            (:file "nes"))))
+  :components ((:file "package")
+               (:file "util")
+               (:file "conditions")
+               (:file "romreader")
+               (:file "nes")))
