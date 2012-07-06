@@ -13,7 +13,7 @@ appropriate parse-rom method, otherwise error."
 
 (defgeneric parse-rom (format pathname)
   (:documentation "Parse the file located at PATHNAME as a ROM of the given
-FORMAT."))
+FORMAT. FORMAT should be a symbol denoting a file extension."))
 
 (defgeneric rom-binary (rom)
   (:documentation "Return a bytevector of the ROM data."))
