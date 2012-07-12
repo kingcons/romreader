@@ -50,13 +50,6 @@
   "A list of known NES Memory Mappers of the form (Number . Name).")
 
 
-;;;; ROM Data
-
-(defclass nes-rom ()
-  ((metadata :initarg :metadata :accessor rom-metadata)
-   (binary :initarg :binary :accessor rom-binary)))
-
-
 ;;;; Parser
 
 (defun parse-header (byte-vector)
@@ -89,13 +82,8 @@
                                          :message "Non-0 bits in byte 7."))))
       (error 'malformed-header :message "NES^Z or zero pad bytes missing.")))
 
-(defmethod parse-rom ((rom (eql 'NES)) pathname)
-  (with-open-file (in pathname :element-type '(unsigned-byte 8))
-    (let ((header (parse-header (coerce (loop for i from 0 to 15
-                                           collecting (read-byte in))
-                                        'vector))))
-      (make-instance 'nes-rom
-                     :metadata header
-                     :binary (coerce (loop for byte = (read-byte in nil)
-                                        while byte collect byte)
-                                     'vector)))))
+(defreader "nes"
+  (list (parse-header (coerce (loop for i from 0 to 15
+                                 collecting (read-byte in)) 'vector))
+        (coerce (loop for byte = (read-byte in nil)
+                   while byte collect byte) 'vector)))
