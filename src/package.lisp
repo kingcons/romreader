@@ -3,6 +3,7 @@
   (:use #:cl)
   (:export #:defreader
            #:load-rom
+           #:*valid-formats*
            #:rom-binary
            #:rom-metadata
            #:rom-format))

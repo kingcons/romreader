@@ -1,7 +1,7 @@
 (in-package :romreader)
 
 (defvar *valid-formats* nil
-  "A list of implemented ROM formats by file extension.")
+  "A list of ROM formats with implemented readers.")
 
 (defclass rom ()
   ((metadata :initarg :metadata :accessor rom-metadata)
@@ -10,7 +10,7 @@
 
 (defun load-rom (path)
   "Check to see if PATH exists and is a supported ROM format. If so, call the
-appropriate parse-rom method, otherwise error."
+appropriate reader and return a ROM instance, otherwise error."
   (if (and (probe-file path)
            (member (pathname-type path) *valid-formats* :test #'equalp))
       (parse-rom (symb (string-upcase (pathname-type path))) path)
@@ -31,10 +31,10 @@ instance."))
   (:documentation "Return the file extension of the ROM as a symbol."))
 
 (defmacro defreader (format &body body)
-  "Define an eql-specialized PARSE-ROM method for FORMAT that executes BODY.
-FORMAT should be a pathname-type. Ensure that FORMAT is pushed onto
-*valid-formats* if necessary. BODY should return a list with the rom's metadata
-as the first item and the rom's binary as the second."
+  "Define a reader for FORMAT that executes BODY. FORMAT should be a
+pathname-type (i.e. file extension). Ensure that FORMAT is added to the list
+of supported formats if necessary. BODY should return a list with the rom's
+metadata as the first item and the rom's binary as the second."
   `(progn
      (eval-when (:compile-toplevel :load-toplevel)
        (pushnew ,(string-downcase format) *valid-formats* :test #'string=))
