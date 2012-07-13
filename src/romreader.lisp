@@ -33,8 +33,9 @@ instance."))
 (defmacro defreader (format &body body)
   "Define a reader for FORMAT that executes BODY. FORMAT should be a
 pathname-type (i.e. file extension). Ensure that FORMAT is added to the list
-of supported formats if necessary. BODY should return a list with the rom's
-metadata as the first item and the rom's binary as the second."
+of supported formats if necessary. BODY executes within a WITH-OPEN-FILE that
+binds 'in' to a binary-stream of the ROM file. The BODY should return a list with
+the rom's metadata as the first item and the rom's binary as the second."
   `(progn
      (eval-when (:compile-toplevel :load-toplevel)
        (pushnew ,(string-downcase format) *valid-formats* :test #'string=))
