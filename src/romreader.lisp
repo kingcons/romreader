@@ -4,9 +4,9 @@
   "A list of ROM formats with implemented readers.")
 
 (defclass rom ()
-  ((metadata :initarg :metadata :accessor rom-metadata)
-   (binary :initarg :binary :accessor rom-binary)
-   (format :initarg :format :accessor rom-format)))
+  ((metadata :initarg :metadata :reader rom-metadata)
+   (binary :initarg :binary :reader rom-binary)
+   (format :initarg :format :reader rom-format)))
 
 (defun load-rom (path)
   "Check to see if PATH exists and is a supported ROM format. If so, call the

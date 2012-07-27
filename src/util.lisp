@@ -9,9 +9,3 @@
 
 (defun symb (&rest args)
   (values (intern (apply #'mkstr args) (load-time-value *package*))))
-
-(defun ksymb (&rest args)
-  (values (intern (apply #'mkstr args) :keyword)))
-
-(defun print-byte (byte)
-  (format nil "~8,'0b" byte))
