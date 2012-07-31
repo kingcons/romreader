@@ -69,6 +69,31 @@ else
 <pre>A list of ROM formats with implemented readers.</pre></div></div></div></div>
 <div class="frame">
 <div class="labeltitle">
+<span class="expander" onclick="expand(this, 'classes');">-</span>Classes</div>
+<div id="classes">
+<div class="symboldecl">
+<div class="definition">
+<a class="symbolname" name="rom_class" href="#rom_class">rom</a>
+<span class="lambdalist">(standard-object)</span>
+<span class="symboltype">class</span></div>
+<div class="documentation">
+<pre></pre></div>
+<div class="slots">
+<div class="label">SLOTS</div>
+<span class="symbolname">metadata</span> reader: 
+<span class="symbolname">rom-metadata</span>
+<div class="documentation">
+<pre>UNDOCUMENTED</pre></div>
+<span class="symbolname">binary</span> reader: 
+<span class="symbolname">rom-binary</span>
+<div class="documentation">
+<pre>UNDOCUMENTED</pre></div>
+<span class="symbolname">format</span> reader: 
+<span class="symbolname">rom-format</span>
+<div class="documentation">
+<pre>UNDOCUMENTED</pre></div></div></div></div></div>
+<div class="frame">
+<div class="labeltitle">
 <span class="expander" onclick="expand(this, 'functions');">-</span>Functions</div>
 <div id="functions">
 <div class="symboldecl">
@@ -99,13 +124,6 @@ appropriate reader and return a ROM instance, otherwise error.</pre></div></div>
 <pre>Return a bytevector of the ROM data.</pre></div></div>
 <div class="symboldecl">
 <div class="definition">
-<a class="symbolname" name="(setf rom-binary)_func" href="#(setf rom-binary)_func">(setf rom-binary)</a>
-<span class="lambdalist">new-value object</span>
-<span class="symboltype">standard-generic-function</span></div>
-<div class="documentation">
-<pre>:undocumented</pre></div></div>
-<div class="symboldecl">
-<div class="definition">
 <a class="symbolname" name="rom-format_func" href="#rom-format_func">rom-format</a>
 <span class="lambdalist">rom</span>
 <span class="symboltype">standard-generic-function</span></div>
@@ -113,25 +131,11 @@ appropriate reader and return a ROM instance, otherwise error.</pre></div></div>
 <pre>Return the file extension of the ROM as a symbol.</pre></div></div>
 <div class="symboldecl">
 <div class="definition">
-<a class="symbolname" name="(setf rom-format)_func" href="#(setf rom-format)_func">(setf rom-format)</a>
-<span class="lambdalist">new-value object</span>
-<span class="symboltype">standard-generic-function</span></div>
-<div class="documentation">
-<pre>:undocumented</pre></div></div>
-<div class="symboldecl">
-<div class="definition">
 <a class="symbolname" name="rom-metadata_func" href="#rom-metadata_func">rom-metadata</a>
 <span class="lambdalist">rom</span>
 <span class="symboltype">standard-generic-function</span></div>
 <div class="documentation">
-<pre>Return a plist of the ROM metadata.</pre></div></div>
-<div class="symboldecl">
-<div class="definition">
-<a class="symbolname" name="(setf rom-metadata)_func" href="#(setf rom-metadata)_func">(setf rom-metadata)</a>
-<span class="lambdalist">new-value object</span>
-<span class="symboltype">standard-generic-function</span></div>
-<div class="documentation">
-<pre>:undocumented</pre></div></div></div></div>
+<pre>Return a plist of the ROM metadata.</pre></div></div></div></div>
 <div class="frame">
 <div class="labeltitle">
 <span class="expander" onclick="expand(this, 'macros');">-</span>Macros</div>

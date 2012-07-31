@@ -4,6 +4,7 @@
   (:export #:defreader
            #:load-rom
            #:*valid-formats*
+           #:rom
            #:rom-binary
            #:rom-metadata
            #:rom-format))
