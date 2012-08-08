@@ -12,15 +12,15 @@
   (with-output-to-string (s)
     (dolist (a args) (princ a s))))
 
-(defun symb (&rest args)
-  (values (intern (apply #'mkstr args) (load-time-value *package*))))
+(defun ksymb (&rest args)
+  (values (intern (apply #'mkstr args) :keyword)))
 
 (defun load-rom (path)
   "Check to see if PATH exists and is a supported ROM format. If so, call the
 appropriate reader and return a ROM instance, otherwise error."
   (if (and (probe-file path)
            (member (pathname-type path) *valid-formats* :test #'equalp))
-      (parse-rom (symb (string-upcase (pathname-type path))) path)
+      (parse-rom (ksymb (string-upcase (pathname-type path))) path)
       (error 'unknown-format :filename path)))
 
 (defgeneric parse-rom (format pathname)
@@ -46,8 +46,8 @@ the rom's metadata as the first item and the rom's binary as the second."
   `(progn
      (eval-when (:compile-toplevel :load-toplevel)
        (pushnew ,(string-downcase format) *valid-formats* :test #'string=))
-     (defmethod parse-rom ((rom (eql ',(intern format))) pathname)
-       (with-open-file (in pathname :element-type '(unsigned-byte 8))
+     (defmethod parse-rom ((rom (eql ,(ksymb (string-upcase format)))) pathname)
+       (with-open-file (,(intern "IN") pathname :element-type '(unsigned-byte 8))
          (destructuring-bind (metadata binary) (progn ,@body)
            (make-instance 'rom :metadata metadata :binary binary
-                          :format ',(intern format)))))))
+                          :format ',(intern (string-upcase format))))))))
