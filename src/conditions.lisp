@@ -16,10 +16,3 @@
                        (pathname-type filename) filename))))
   (:documentation "Signalled when an appropriate parser method could not be
 found for the extension of the given ROM pathname."))
-
-(define-condition malformed-header (romreader-error)
-  ((message :initarg :message :reader message))
-  (:report (lambda (condition stream)
-             (format stream "Malformed ROM Header: ~a" (message condition))))
-  (:documentation "Signalled when a corrupted or otherwise invalid header is
-encountered."))

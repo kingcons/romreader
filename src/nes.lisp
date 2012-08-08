@@ -1,4 +1,7 @@
-(in-package :romreader)
+(defpackage :romreader-nes
+  (:use :cl :romreader))
+
+(in-package :romreader-nes)
 
 ;;;;; NES file format docs: http://fms.komkon.org/EMUL8/NES.html#LABM
 ;;;;; A little more NES ROM talk: http://sadistech.com/nesromtool/romdoc.html
@@ -46,6 +49,15 @@
     (81 . "AVE Nina-6 board") ; Deathbots, MermaidsOfAtlantis, etc.
     (91 . "Pirate HK-SF3 chip"))
   "A list of known NES Memory Mappers of the form (Number . Name).")
+
+;;;; Conditions
+
+(define-condition malformed-header (romreader-error)
+  ((message :initarg :message :reader message))
+  (:report (lambda (condition stream)
+             (format stream "Malformed ROM Header: ~a" (message condition))))
+  (:documentation "Signalled when a corrupted or otherwise invalid header is
+encountered."))
 
 ;;;; Parser
 
