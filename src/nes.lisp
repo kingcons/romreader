@@ -1,9 +1,7 @@
 (in-package :romreader)
 
-
 ;;;;; NES file format docs: http://fms.komkon.org/EMUL8/NES.html#LABM
 ;;;;; A little more NES ROM talk: http://sadistech.com/nesromtool/romdoc.html
-
 
 ;;;; Mappers
 
@@ -48,7 +46,6 @@
     (81 . "AVE Nina-6 board") ; Deathbots, MermaidsOfAtlantis, etc.
     (91 . "Pirate HK-SF3 chip"))
   "A list of known NES Memory Mappers of the form (Number . Name).")
-
 
 ;;;; Parser
 

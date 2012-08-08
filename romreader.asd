@@ -7,7 +7,6 @@
   :pathname "src/"
   :serial t
   :components ((:file "package")
-               (:file "util")
                (:file "conditions")
                (:file "romreader")
                (:file "nes")))

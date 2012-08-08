@@ -1,12 +1,19 @@
 (in-package :romreader)
 
 (defvar *valid-formats* nil
-  "A list of ROM formats with implemented readers.")
+  "A list of ROM formats with implemented readers. Do not manually modify this.")
 
 (defclass rom ()
   ((metadata :initarg :metadata :reader rom-metadata)
    (binary :initarg :binary :reader rom-binary)
    (format :initarg :format :reader rom-format)))
+
+(defun mkstr (&rest args)
+  (with-output-to-string (s)
+    (dolist (a args) (princ a s))))
+
+(defun symb (&rest args)
+  (values (intern (apply #'mkstr args) (load-time-value *package*))))
 
 (defun load-rom (path)
   "Check to see if PATH exists and is a supported ROM format. If so, call the

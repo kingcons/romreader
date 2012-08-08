@@ -7,4 +7,5 @@
            #:rom
            #:rom-binary
            #:rom-metadata
-           #:rom-format))
+           #:rom-format
+           #:romreader-error))
