@@ -2,7 +2,7 @@
 ## An extensible reader of ROM formats in portable CL.
 
 ### Install
-You are strongly encouraged to use this library via [Quicklisp](http://quicklisp.org/). Simply start your lisp and run: ```(ql:quickload 'romreader)```. Though it is not available at the time of this writing (August 8th, 2012), it is expected to be available in the next release.
+You are strongly encouraged to use this library via [Quicklisp](http://quicklisp.org/). Simply start your lisp and run: ```(ql:quickload 'romreader)```.
 
 ### Getting Started
 If you're reading this, you're probably interested in parsing ROMs using Lisp. There are 3 things you can do with romreader: parse a rom it [supports](http://redlinernotes.com/docs/romreader.html#*valid-formats*_vars), teach it how to parse a new format, and access parts of a loaded rom.
