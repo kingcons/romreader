@@ -91,6 +91,16 @@ else
 <span class="symbolname">format</span> reader: 
 <span class="symbolname">rom-format</span>
 <div class="documentation">
+<pre>UNDOCUMENTED</pre></div>
+<span class="symbolname">prg</span> reader: 
+<span class="symbolname">rom-prg</span> writer: 
+<span class="symbolname">rom-prg</span>
+<div class="documentation">
+<pre>UNDOCUMENTED</pre></div>
+<span class="symbolname">chr</span> reader: 
+<span class="symbolname">rom-chr</span> writer: 
+<span class="symbolname">rom-chr</span>
+<div class="documentation">
 <pre>UNDOCUMENTED</pre></div></div></div></div></div>
 <div class="frame">
 <div class="labeltitle">
@@ -134,6 +144,20 @@ appropriate reader and return a ROM instance, otherwise error.</pre></div></div>
 <pre>Return a bytevector of the ROM data.</pre></div></div>
 <div class="symboldecl">
 <div class="definition">
+<a class="symbolname" name="rom-chr_func" href="#rom-chr_func">rom-chr</a>
+<span class="lambdalist">rom</span>
+<span class="symboltype">standard-generic-function</span></div>
+<div class="documentation">
+<pre>Return the character/sprite data from the ROM.</pre></div></div>
+<div class="symboldecl">
+<div class="definition">
+<a class="symbolname" name="(setf rom-chr)_func" href="#(setf rom-chr)_func">(setf rom-chr)</a>
+<span class="lambdalist">new-value object</span>
+<span class="symboltype">standard-generic-function</span></div>
+<div class="documentation">
+<pre>:undocumented</pre></div></div>
+<div class="symboldecl">
+<div class="definition">
 <a class="symbolname" name="rom-format_func" href="#rom-format_func">rom-format</a>
 <span class="lambdalist">rom</span>
 <span class="symboltype">standard-generic-function</span></div>
@@ -145,7 +169,21 @@ appropriate reader and return a ROM instance, otherwise error.</pre></div></div>
 <span class="lambdalist">rom</span>
 <span class="symboltype">standard-generic-function</span></div>
 <div class="documentation">
-<pre>Return a plist of the ROM metadata.</pre></div></div></div></div>
+<pre>Return a plist of the ROM metadata.</pre></div></div>
+<div class="symboldecl">
+<div class="definition">
+<a class="symbolname" name="rom-prg_func" href="#rom-prg_func">rom-prg</a>
+<span class="lambdalist">rom</span>
+<span class="symboltype">standard-generic-function</span></div>
+<div class="documentation">
+<pre>Return the program data from the ROM.</pre></div></div>
+<div class="symboldecl">
+<div class="definition">
+<a class="symbolname" name="(setf rom-prg)_func" href="#(setf rom-prg)_func">(setf rom-prg)</a>
+<span class="lambdalist">new-value object</span>
+<span class="symboltype">standard-generic-function</span></div>
+<div class="documentation">
+<pre>:undocumented</pre></div></div></div></div>
 <div class="frame">
 <div class="labeltitle">
 <span class="expander" onclick="expand(this, 'macros');">-</span>Macros</div>
