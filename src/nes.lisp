@@ -69,7 +69,7 @@ encountered."))
       (list :prg-roms (aref byte-vector 4) ;; program rom
             :prg-size (* #x4000 (aref byte-vector 4))
             :chr-roms (aref byte-vector 5) ;; character rom
-            :chr-roms (* #x2000 (aref byte-vector 5))
+            :chr-size (* #x2000 (aref byte-vector 5))
             :8k-rams (let ((byte (aref byte-vector 8)))
                        (if (zerop byte) 1 byte)) ; backwards compatibility
             ;; The mapper's four low bits are at the end of byte 6
