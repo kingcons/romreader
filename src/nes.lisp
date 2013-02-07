@@ -1,5 +1,7 @@
 (defpackage :romreader-nes
-  (:use :cl :romreader))
+  (:use :cl :romreader)
+  (:import-from #:romreader :metadata
+                            :binary))
 
 (in-package :romreader-nes)
 
@@ -64,8 +66,8 @@ encountered."))
 (defun parse-header (byte-vector)
   (if (and (equalp #(78 69 83 26) (subseq byte-vector 0 4)) ; "NES^Z"
            (every #'zerop (subseq byte-vector 10 16)))
-      (list :16k-roms (aref byte-vector 4) ;; program rom
-            :8k-roms (aref byte-vector 5) ;; character rom
+      (list :prg-roms (aref byte-vector 4) ;; program rom
+            :chr-roms (aref byte-vector 5) ;; character rom
             :8k-rams (let ((byte (aref byte-vector 8)))
                        (if (zerop byte) 1 byte)) ; backwards compatibility
             ;; The mapper's four low bits are at the end of byte 6
@@ -96,3 +98,11 @@ encountered."))
                                  collecting (read-byte in)) 'vector))
         (coerce (loop for byte = (read-byte in nil)
                    while byte collect byte) 'vector)))
+
+(defmethod initialize-instance :after ((rom nes) &key)
+  (with-slots ((meta metadata)
+               (bin binary)) rom
+    (let ((prg-length (* #x4000 (getf meta :prg-roms)))
+          (chr-length (* #x2000 (getf meta :chr-roms))))
+      (setf (rom-prg rom) (subseq bin 0 prg-length)
+            (rom-chr rom) (subseq bin prg-length (+ prg-length chr-length))))))

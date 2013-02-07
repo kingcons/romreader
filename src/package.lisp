@@ -8,4 +8,6 @@
            #:rom-binary
            #:rom-metadata
            #:rom-format
+           #:rom-prg
+           #:rom-chr
            #:romreader-error))
