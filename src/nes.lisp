@@ -11,34 +11,34 @@
 ;;;; Mappers
 
 (defvar *mapper-table*
-  '((0 . "No mapper") ; All 32kB ROM + 8kB VROM games
-    (1 . "Nintendo MMC1") ; Megaman2, Bomberman2, etc.
-    (2 . "CNROM switch") ; Castlevania, LifeForce, etc.
-    (3 . "UNROM switch") ; QBert, PipeDream, Cybernoid, many Japanese games
-    (4 . "Nintendo MMC3") ; SilverSurfer, SuperContra, Immortal, etc.
-    (5 . "Nintendo MMC5") ; Castlevania3
-    (6 . "FFE F4xxx") ; F4xxx games off FFE CDROM
-    (7 . "AOROM switch") ; WizardsAndWarriors, Solstice, etc.
-    (8 . "FFE F3xxx") ; F3xxx games off FFE CDROM
-    (9 . "Nintendo MMC2") ; Punchout
-    (10 . "Nintendo MMC4") ; Punchout2
-    (11 . "ColorDreams chip") ; CrystalMines, TaginDragon, etc.
-    (12 . "FFE F6xxx") ; F6xxx games off FFE CDROM
+  '((0  . "No mapper")            ; All 32kB ROM + 8kB VROM games
+    (1  . "Nintendo MMC1")        ; Megaman2, Bomberman2, etc.
+    (2  . "CNROM switch")         ; Castlevania, LifeForce, etc.
+    (3  . "UNROM switch")         ; QBert, PipeDream, Cybernoid, many Japanese games
+    (4  . "Nintendo MMC3")        ; SilverSurfer, SuperContra, Immortal, etc.
+    (5  . "Nintendo MMC5")        ; Castlevania3
+    (6  . "FFE F4xxx")            ; F4xxx games off FFE CDROM
+    (7  . "AOROM switch")         ; WizardsAndWarriors, Solstice, etc.
+    (8  . "FFE F3xxx")            ; F3xxx games off FFE CDROM
+    (9  . "Nintendo MMC2")        ; Punchout
+    (10 . "Nintendo MMC4")        ; Punchout2
+    (11 . "ColorDreams chip")     ; CrystalMines, TaginDragon, etc.
+    (12 . "FFE F6xxx")            ; F6xxx games off FFE CDROM
     (13 . "CPROM switch")
-    (15 . "100-in-1 switch") ; 100-in-1 cartridge
-    (16 . "Bandai chip") ; Japanese DragonBallZ series, etc.
-    (17 . "FFE F8xxx") ; F8xxx games off FFE CDROM
-    (18 . "Jaleco SS8806 chip") ; Japanese Baseball3, etc.
-    (19 . "Namcot 106 chip") ; Japanese GhostHouse2, Baseball90, etc.
-    (20 . "Nintendo DiskSystem") ; Reserved. Don't use this mapper!
-    (21 . "Konami VRC4a") ; Japanese WaiWaiWorld2, etc.
-    (22 . "Konami VRC2a") ; Japanese TwinBee3
-    (23 . "Konami VRC2a") ; Japanese WaiWaiWorld, MoonWindLegend, etc.
+    (15 . "100-in-1 switch")      ; 100-in-1 cartridge
+    (16 . "Bandai chip")          ; Japanese DragonBallZ series, etc.
+    (17 . "FFE F8xxx")            ; F8xxx games off FFE CDROM
+    (18 . "Jaleco SS8806 chip")   ; Japanese Baseball3, etc.
+    (19 . "Namcot 106 chip")      ; Japanese GhostHouse2, Baseball90, etc.
+    (20 . "Nintendo DiskSystem")  ; Reserved. Don't use this mapper!
+    (21 . "Konami VRC4a")         ; Japanese WaiWaiWorld2, etc.
+    (22 . "Konami VRC2a")         ; Japanese TwinBee3
+    (23 . "Konami VRC2a")         ; Japanese WaiWaiWorld, MoonWindLegend, etc.
     (24 . "Konami VRC6")
     (25 . "Konami VRC4b")
-    (32 . "Irem G-101 chip") ; Japanese ImageFight, etc.
-    (33 . "Taito TC0190/TC0350") ; Japanese PowerBlazer
-    (34 . "Nina-1 board") ; ImpossibleMission2 and DeadlyTowers
+    (32 . "Irem G-101 chip")      ; Japanese ImageFight, etc.
+    (33 . "Taito TC0190/TC0350")  ; Japanese PowerBlazer
+    (34 . "Nina-1 board")         ; ImpossibleMission2 and DeadlyTowers
     (64 . "Tengen RAMBO-1 chip")
     (65 . "Irem H-3001 chip")
     (66 . "GNROM switch")
@@ -47,8 +47,8 @@
     (69 . "SunSoft5 FME-7 chip")
     (71 . "Camerica chip")
     (78 . "Irem 74HC161/32-based")
-    (79 . "AVE Nina-3 board") ; KrazyKreatures, DoubleStrike, etc.
-    (81 . "AVE Nina-6 board") ; Deathbots, MermaidsOfAtlantis, etc.
+    (79 . "AVE Nina-3 board")     ; KrazyKreatures, DoubleStrike, etc.
+    (81 . "AVE Nina-6 board")     ; Deathbots, MermaidsOfAtlantis, etc.
     (91 . "Pirate HK-SF3 chip"))
   "A list of known NES Memory Mappers of the form (Number . Name).")
 
@@ -105,4 +105,5 @@ encountered."))
     (let ((prg-length (* #x4000 (getf meta :prg-roms)))
           (chr-length (* #x2000 (getf meta :chr-roms))))
       (setf (rom-prg rom) (subseq bin 0 prg-length)
+            ; Note: If chr is never followed, (subseq bin prg-length) is enough.
             (rom-chr rom) (subseq bin prg-length (+ prg-length chr-length))))))

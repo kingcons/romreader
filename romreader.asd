@@ -1,7 +1,7 @@
 (defsystem #:romreader
   :name "romreader"
   :description "A library for reading various ROM formats."
-  :version "0.3"
+  :version "0.4"
   :license "BSD"
   :author "Brit Butler <redline6561@gmail.com>"
   :pathname "src/"
