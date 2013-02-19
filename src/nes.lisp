@@ -1,7 +1,5 @@
 (defpackage :romreader-nes
-  (:use :cl :romreader)
-  (:import-from #:romreader :metadata
-                            :binary))
+  (:use :cl :romreader))
 
 (in-package :romreader-nes)
 
@@ -102,8 +100,8 @@ encountered."))
                    while byte collect byte) 'vector)))
 
 (defmethod initialize-instance :after ((rom nes) &key)
-  (with-slots ((meta metadata)
-               (bin binary)) rom
+  (with-accessors ((meta rom-metadata)
+                   (bin rom-binary)) rom
     (let ((prg-length (* #x4000 (getf meta :prg-roms)))
           (chr-length (* #x2000 (getf meta :chr-roms))))
       (setf (rom-prg rom) (subseq bin 0 prg-length)
