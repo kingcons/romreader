@@ -20,10 +20,10 @@
 (defun load-rom (path)
   "Check to see if PATH exists and is a supported ROM format. If so, call the
 appropriate reader and return a ROM instance, otherwise error."
-  (if (and (probe-file path)
-           (member (pathname-type path) *valid-formats* :test #'equalp))
-      (parse-rom (ksymb (string-upcase (pathname-type path))) path)
-      (error 'unknown-format :filename path)))
+  (cond ((null (probe-file path)) (error "File does not exist: ~a" path))
+        ((member (pathname-type path) *valid-formats* :test #'equalp)
+         (parse-rom (ksymb (string-upcase (pathname-type path))) path))
+        (t (error 'unknown-format :filename path))))
 
 (defgeneric parse-rom (format pathname)
   (:documentation "Parse the file located at PATHNAME as a ROM of the given
