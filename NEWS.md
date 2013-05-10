@@ -1,3 +1,8 @@
+## Changes for 0.5 (2013-xx-xx):
+
+* INCOMPATIBLE CHANGE: Split the `:mapper` from rom-metadata into
+  `:mapper-id` and `:mapper-name`.
+
 ## Changes for 0.4 (2013-02-19):
 
 * Improved error reporting in load-rom.

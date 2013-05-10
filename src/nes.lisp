@@ -64,33 +64,34 @@ encountered."))
 (defun parse-header (byte-vector)
   (if (and (equalp #(78 69 83 26) (subseq byte-vector 0 4)) ; "NES^Z"
            (every #'zerop (subseq byte-vector 10 16)))
-      (list :prg-roms (aref byte-vector 4) ;; program rom
-            :prg-size (* #x4000 (aref byte-vector 4))
-            :chr-roms (aref byte-vector 5) ;; character rom
-            :chr-size (* #x2000 (aref byte-vector 5))
-            :8k-rams (let ((byte (aref byte-vector 8)))
-                       (if (zerop byte) 1 byte)) ; backwards compatibility
-            ;; The mapper's four low bits are at the end of byte 6
-            ;; and the corresponding high bits are at the end of byte 7.
-            :mapper (assoc (+ (ash (ldb (byte 4 4) (aref byte-vector 7)) 4)
-                              (ldb (byte 4 4) (aref byte-vector 6)))
-                           *mapper-table*)
-            :region (case (aref byte-vector 9)
-                      (0 :ntsc)
-                      (1 :pal)
-                      (t (error 'malformed-header
-                                :message "Region must be 0 or 1.")))
-            :mirroring (if (zerop (ldb (byte 1 0) (aref byte-vector 6)))
-                           :horizontal
-                           :vertical)
-            :battery-ram-p (zerop (ldb (byte 1 1) (aref byte-vector 6)))
-            :trainer-p (zerop (ldb (byte 1 2) (aref byte-vector 6)))
-            :four-screen-vram-p (zerop (ldb (byte 1 3) (aref byte-vector 6)))
-            :vs-cartridge-p (let ((byte (aref byte-vector 7)))
-                              (if (zerop (ldb (byte 3 1) byte))
-                                  (zerop (ldb (byte 1 0) byte))
-                                  (error 'malformed-header
-                                         :message "Non-0 bits in byte 7."))))
+      ;; The mapper's four low bits are at the end of byte 6
+      ;; and the corresponding high bits are at the end of byte 7.
+      (let ((mapper-id (+ (ash (ldb (byte 4 4) (aref byte-vector 7)) 4)
+                          (ldb (byte 4 4) (aref byte-vector 6)))))
+        (list :prg-roms (aref byte-vector 4) ;; program rom
+              :prg-size (* #x4000 (aref byte-vector 4))
+              :chr-roms (aref byte-vector 5) ;; character rom
+              :chr-size (* #x2000 (aref byte-vector 5))
+              :8k-rams (let ((byte (aref byte-vector 8)))
+                         (if (zerop byte) 1 byte)) ; backwards compatibility
+              :mapper-id mapper-id
+              :mapper-name (rest (assoc mapper-id *mapper-table*))
+              :region (case (aref byte-vector 9)
+                        (0 :ntsc)
+                        (1 :pal)
+                        (t (error 'malformed-header
+                                  :message "Region must be 0 or 1.")))
+              :mirroring (if (zerop (ldb (byte 1 0) (aref byte-vector 6)))
+                             :horizontal
+                             :vertical)
+              :battery-ram-p (zerop (ldb (byte 1 1) (aref byte-vector 6)))
+              :trainer-p (zerop (ldb (byte 1 2) (aref byte-vector 6)))
+              :four-screen-vram-p (zerop (ldb (byte 1 3) (aref byte-vector 6)))
+              :vs-cartridge-p (let ((byte (aref byte-vector 7)))
+                                (if (zerop (ldb (byte 3 1) byte))
+                                    (zerop (ldb (byte 1 0) byte))
+                                    (error 'malformed-header
+                                           :message "Non-0 bits in byte 7.")))))
       (error 'malformed-header :message "NES^Z or zero pad bytes missing.")))
 
 (defreader "nes"
