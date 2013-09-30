@@ -68,9 +68,9 @@ encountered."))
       ;; and the corresponding high bits are at the end of byte 7.
       (let ((mapper-id (+ (ash (ldb (byte 4 4) (aref byte-vector 7)) 4)
                           (ldb (byte 4 4) (aref byte-vector 6)))))
-        (list :prg-roms (aref byte-vector 4) ;; program rom
+        (list :prg-roms (aref byte-vector 4) ; program rom
               :prg-size (* #x4000 (aref byte-vector 4))
-              :chr-roms (aref byte-vector 5) ;; character rom
+              :chr-roms (aref byte-vector 5) ; character rom
               :chr-size (* #x2000 (aref byte-vector 5))
               :8k-rams (let ((byte (aref byte-vector 8)))
                          (if (zerop byte) 1 byte)) ; backwards compatibility
@@ -106,5 +106,4 @@ encountered."))
     (let ((prg-length (* #x4000 (getf meta :prg-roms)))
           (chr-length (* #x2000 (getf meta :chr-roms))))
       (setf (rom-prg rom) (subseq bin 0 prg-length)
-            ; Note: If chr is never followed, (subseq bin prg-length) is enough.
-            (rom-chr rom) (subseq bin prg-length (+ prg-length chr-length))))))
+            (rom-chr rom) (subseq bin prg-length)))))
