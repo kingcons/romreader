@@ -19,45 +19,8 @@
     (7  . "AOROM switch")         ; WizardsAndWarriors, Solstice, etc.
     (8  . "FFE F3xxx")            ; F3xxx games off FFE CDROM
     (9  . "Nintendo MMC2")        ; Punchout
-    (10 . "Nintendo MMC4")        ; Punchout2
-    (11 . "ColorDreams chip")     ; CrystalMines, TaginDragon, etc.
-    (12 . "FFE F6xxx")            ; F6xxx games off FFE CDROM
-    (13 . "CPROM switch")
-    (15 . "100-in-1 switch")      ; 100-in-1 cartridge
-    (16 . "Bandai chip")          ; Japanese DragonBallZ series, etc.
-    (17 . "FFE F8xxx")            ; F8xxx games off FFE CDROM
-    (18 . "Jaleco SS8806 chip")   ; Japanese Baseball3, etc.
-    (19 . "Namcot 106 chip")      ; Japanese GhostHouse2, Baseball90, etc.
-    (20 . "Nintendo DiskSystem")  ; Reserved. Don't use this mapper!
-    (21 . "Konami VRC4a")         ; Japanese WaiWaiWorld2, etc.
-    (22 . "Konami VRC2a")         ; Japanese TwinBee3
-    (23 . "Konami VRC2a")         ; Japanese WaiWaiWorld, MoonWindLegend, etc.
-    (24 . "Konami VRC6")
-    (25 . "Konami VRC4b")
-    (32 . "Irem G-101 chip")      ; Japanese ImageFight, etc.
-    (33 . "Taito TC0190/TC0350")  ; Japanese PowerBlazer
-    (34 . "Nina-1 board")         ; ImpossibleMission2 and DeadlyTowers
-    (64 . "Tengen RAMBO-1 chip")
-    (65 . "Irem H-3001 chip")
-    (66 . "GNROM switch")
-    (67 . "SunSoft3 chip")
-    (68 . "SunSoft4 chip")
-    (69 . "SunSoft5 FME-7 chip")
-    (71 . "Camerica chip")
-    (78 . "Irem 74HC161/32-based")
-    (79 . "AVE Nina-3 board")     ; KrazyKreatures, DoubleStrike, etc.
-    (81 . "AVE Nina-6 board")     ; Deathbots, MermaidsOfAtlantis, etc.
-    (91 . "Pirate HK-SF3 chip"))
+    (10 . "Nintendo MMC4"))       ; Punchout 2
   "A list of known NES Memory Mappers of the form (Number . Name).")
-
-;;;; Conditions
-
-(define-condition malformed-header (romreader-error)
-  ((message :initarg :message :reader message))
-  (:report (lambda (condition stream)
-             (format stream "Malformed ROM Header: ~a" (message condition))))
-  (:documentation "Signalled when a corrupted or otherwise invalid header is
-encountered."))
 
 ;;;; Parser
 
@@ -75,7 +38,7 @@ encountered."))
               :8k-rams (let ((byte (aref byte-vector 8)))
                          (if (zerop byte) 1 byte)) ; backwards compatibility
               :mapper-id mapper-id
-              :mapper-name (rest (assoc mapper-id *mapper-table*))
+              :mapper-name (or (rest (assoc mapper-id *mapper-table*)) "Unknown")
               :region (case (aref byte-vector 9)
                         (0 :ntsc)
                         (1 :pal)

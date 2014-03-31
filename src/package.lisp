@@ -10,4 +10,5 @@
            #:rom-format
            #:rom-prg
            #:rom-chr
-           #:romreader-error))
+           #:romreader-error
+           #:malformed-header))
