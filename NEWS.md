@@ -1,4 +1,4 @@
-## Changes for 0.5 (2013-xx-xx):
+## Changes for 0.5 (2014-03-31):
 
 * INCOMPATIBLE CHANGE: Split the `:mapper` from rom-metadata into
   `:mapper-id` and `:mapper-name`.
