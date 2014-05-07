@@ -9,11 +9,11 @@
 ;;;; Mappers
 
 (defvar *mapper-table*
-  '((0  . "No mapper")            ; All 32kB ROM + 8kB VROM games
-    (1  . "Nintendo MMC1")        ; Megaman2, Bomberman2, etc.
-    (2  . "CNROM switch")         ; Castlevania, LifeForce, etc.
-    (3  . "UNROM switch")         ; QBert, PipeDream, Cybernoid, many Japanese games
-    (4  . "Nintendo MMC3")        ; SilverSurfer, SuperContra, Immortal, etc.
+  '((0  . "No mapper")            ; All 32kB ROM + 8kB VROM games, SMB
+    (1  . "Nintendo MMC1")        ; Final Fantasy, Metroid, Mega Man 2, Zelda
+    (2  . "UNROM")                ; Castlevania, Contra, Metal Gear, Mega Man
+    (3  . "CNROM")                ; Cybernoid, Gradius, PipeDream, QBert
+    (4  . "Nintendo MMC3")        ; Double Dragon II, SMB 3, SuperContra
     (5  . "Nintendo MMC5")        ; Castlevania3
     (6  . "FFE F4xxx")            ; F4xxx games off FFE CDROM
     (7  . "AOROM switch")         ; WizardsAndWarriors, Solstice, etc.
